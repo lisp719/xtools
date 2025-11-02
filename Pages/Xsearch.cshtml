@@ -1,0 +1,41 @@
+@page
+@model XsearchModel
+@{
+    ViewData["Title"] = "Xsearch";
+}
+
+<form method="post" target="_blank">
+    <fieldset>
+        <input type="text" name="query" placeholder="Enter search query" required>
+        <label>
+            <input type="checkbox" name="japaneseOnly" value="true" checked>
+            日本語のツイートのみ検索
+        </label>
+        <label>
+            <input type="checkbox" name="excludeReplies" value="true">
+            リプライを除外
+        </label>
+        <label>
+            <input type="checkbox" name="followersOnly" value="true">
+            フォロワーのツイートのみ表示
+        </label>
+        <label>
+            <select name="filter" class="w-full p-3 border rounded-lg">
+                <option value="" selected>フィルターを選択</option>
+                <option value="filter:images">画像のみ</option>
+                <option value="filter:links">リンクのみ</option>
+                <option value="-filter:images">画像を除外</option>
+                <option value="-filter:links">リンクを除外</option>
+            </select>
+        </label>
+        <div class="grid">
+            <label>
+                <input type="date" name="since">
+            </label>
+            <label>
+                <input type="date" name="until">
+            </label>
+        </div>
+    </fieldset>
+    <button type="submit">Search</button>
+</form>

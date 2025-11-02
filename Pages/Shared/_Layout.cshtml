@@ -10,28 +10,23 @@
     <link rel="stylesheet" href="~/xtools.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav>
-            <div>
-                <a asp-area="" asp-page="/Index">xtools</a>
-                <ul>
-                    <li><a asp-area="" asp-page="/Index">Home</a></li>
-                    <li><a asp-area="" asp-page="/Privacy">Privacy</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-    <div>
-        <main role="main">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer>
+    <div class="container">
+        <header>
+            <nav>
+                <div>
+                    <ul>
+                        <li><a asp-area="" asp-page="/Index">Home</a></li>
+                        <li><a asp-area="" asp-page="/Xsearch">Xsearch</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
         <div>
-            &copy; 2025 - xtools - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            <main role="main">
+                @RenderBody()
+            </main>
         </div>
-    </footer>
+    </div>
 
     <script src="~/js/site.js" asp-append-version="true"></script>
 
