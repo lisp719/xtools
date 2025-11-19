@@ -5,6 +5,7 @@ using System.Net;
 
 namespace xtools.Pages;
 
+[IgnoreAntiforgeryToken]
 public class XsearchModel : PageModel
 {
     private readonly ILogger<XsearchModel> _logger;

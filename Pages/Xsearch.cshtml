@@ -4,7 +4,7 @@
   ViewData["Title"] = "Xsearch";
 }
 
-<form method="post" target="_blank">
+<form method="post" target="_blank" asp-antiforgery="false">
   <fieldset>
     <input type="text" name="query" placeholder="Enter search query" required>
     <label>
