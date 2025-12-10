@@ -21,9 +21,15 @@ namespace MyApp.Namespace
         {
             string url = "https://x.com/search?q=-filter:replies";
             if (!string.IsNullOrEmpty(options.Filter)) url += "%20" + options.Filter;
-            if (!string.IsNullOrEmpty(options.Until)) url += "%20until:" + options.Until;
+            if (!string.IsNullOrEmpty(options.Until)) url += "%20until:" + FormatDate(options.Until);
             url += "&f=live&pf=on";
             return Redirect(url);
+        }
+
+        private string FormatDate(string dateStr)
+        {
+            DateTime dt = DateTime.Parse(dateStr);
+            return dt.ToString("yyyy-MM-dd_HH:mm:ss_JST");
         }
     }
 }
