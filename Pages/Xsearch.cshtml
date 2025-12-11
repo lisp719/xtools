@@ -30,6 +30,20 @@
     </label>
     <div class="grid">
       <label>
+        <select name="countType">
+          <option value="" selected>filterType</option>
+          <option value="min_faves">min faves</option>
+          <option value="max_faves">max faves</option>
+          <option value="min_replies">min replies</option>
+          <option value="max_replies">max replies</option>
+        </select>
+      </label>
+      <label>
+        <input type="number" name="countValue" placeholder="countValue">
+      </label>
+    </div>
+    <div class="grid">
+      <label>
         <input type="date" name="since">
       </label>
       <label>

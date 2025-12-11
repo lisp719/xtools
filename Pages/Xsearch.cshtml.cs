@@ -26,6 +26,8 @@ public class XsearchModel : PageModel
         public bool ExcludeReplies { get; set; }
         public bool FollowersOnly { get; set; }
         public string? Filter { get; set; }
+        public string? CountType { get; set; }
+        public string? CountValue { get; set; }
         public string? Since { get; set; }
         public string? Until { get; set; }
     }
@@ -33,13 +35,24 @@ public class XsearchModel : PageModel
     public IActionResult OnPost(string query, SearchOptions options)
     {
         string url = "https://x.com/search?q=" + WebUtility.UrlEncode(query);
+
         if (options.JapaneseOnly) url += "%20lang:ja";
         if (options.ExcludeReplies) url += "%20-filter:replies";
         if (options.FollowersOnly) url += "%20filter:follows";
         if (!string.IsNullOrEmpty(options.Filter)) url += "%20" + options.Filter;
         if (!string.IsNullOrEmpty(options.Since)) url += "%20since:" + options.Since;
         if (!string.IsNullOrEmpty(options.Until)) url += "%20until:" + options.Until;
+
+        url += FilterQuery(options.CountType, options.CountValue);
         url += "&f=live";
+
         return Redirect(url);
+    }
+
+    private string FilterQuery(string? countType, string? countValue)
+    {
+        bool isEmpty = string.IsNullOrEmpty(countType) || string.IsNullOrEmpty(countValue);
+
+        return isEmpty ? "" : "%20" + countType + ":" + countValue;
     }
 }
