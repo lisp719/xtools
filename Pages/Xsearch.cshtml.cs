@@ -22,7 +22,7 @@ public class XsearchModel : PageModel
 
     public class SearchOptions
     {
-        public bool JapaneseOnly { get; set; } = true;
+        public bool JapaneseOnly { get; set; }
         public bool ExcludeReplies { get; set; }
         public bool FollowersOnly { get; set; }
         public string? Filter { get; set; }
