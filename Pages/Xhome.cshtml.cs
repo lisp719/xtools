@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace MyApp.Namespace
 {
+    [IgnoreAntiforgeryToken]
     public class XhomeModel : PageModel
     {
         public void OnGet()
