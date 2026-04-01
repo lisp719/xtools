@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-using System.Net;
-
 namespace xtools.Pages;
 
 [IgnoreAntiforgeryToken]
@@ -34,25 +32,35 @@ public class XsearchModel : PageModel
 
     public IActionResult OnPost(string query, SearchOptions options)
     {
-        string url = "https://x.com/search?q=" + WebUtility.UrlEncode(query);
+        // Defensive: ensure options is not null if model binding fails for some reason
+        options ??= new SearchOptions();
+        // Build search parts and join them with single spaces to avoid accidental
+        // duplicate or leading/trailing spaces. Encode the whole q value once.
+        var parts = new List<string>();
 
-        if (options.JapaneseOnly) url += "%20lang:ja";
-        if (options.ExcludeReplies) url += "%20-filter:replies";
-        if (options.FollowersOnly) url += "%20filter:follows";
-        if (!string.IsNullOrEmpty(options.Filter)) url += "%20" + options.Filter;
-        if (!string.IsNullOrEmpty(options.Since)) url += "%20since:" + options.Since;
-        if (!string.IsNullOrEmpty(options.Until)) url += "%20until:" + options.Until;
+        // Query should appear last per request; add other options first and append query later.
 
-        url += FilterQuery(options.CountType, options.CountValue);
-        url += "&f=live";
+        if (options.JapaneseOnly) parts.Add("lang:ja");
+        if (options.ExcludeReplies) parts.Add("-filter:replies");
+        if (options.FollowersOnly) parts.Add("filter:follows");
+        if (!string.IsNullOrEmpty(options.Filter)) parts.Add(options.Filter);
+        if (!string.IsNullOrEmpty(options.Since)) parts.Add("since:" + options.Since);
+        if (!string.IsNullOrEmpty(options.Until)) parts.Add("until:" + options.Until);
+        if (!string.IsNullOrEmpty(options.CountType) && !string.IsNullOrEmpty(options.CountValue))
+            parts.Add(options.CountType + ":" + options.CountValue);
+
+        if (!string.IsNullOrWhiteSpace(query))
+        {
+            parts.Add(query.Trim());
+        }
+
+        string q = string.Join(" ", parts);
+
+        // Use EscapeDataString to get %20 for spaces which is appropriate in URLs
+        string encoded = string.IsNullOrEmpty(q) ? string.Empty : Uri.EscapeDataString(q);
+
+        string url = "https://x.com/search?q=" + encoded + "&f=live";
 
         return Redirect(url);
-    }
-
-    private string FilterQuery(string? countType, string? countValue)
-    {
-        bool isEmpty = string.IsNullOrEmpty(countType) || string.IsNullOrEmpty(countValue);
-
-        return isEmpty ? "" : "%20" + countType + ":" + countValue;
     }
 }
