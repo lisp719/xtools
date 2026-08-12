@@ -1,0 +1,24 @@
+{
+  "name": "xtools",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy --minify",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit",
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings"
+  },
+  "dependencies": {
+    "hono": "^4.13.1"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.21.0",
+    "@cloudflare/workers-types": "^5.20260811.1",
+    "prettier": "^3.9.6",
+    "typescript": "^5.5.2",
+    "vitest": "^4.1.10",
+    "wrangler": "^4.120.1"
+  }
+}
