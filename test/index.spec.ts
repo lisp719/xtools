@@ -33,7 +33,7 @@ describe('xtools worker', () => {
       const response = await worker.fetch(request, env, ctx);
       await waitOnExecutionContext(ctx);
       const html = await response.text();
-      expect(html).toContain('datetime-local');
+      expect(html).toContain('type="date"');
       expect(html).toContain('filter');
     });
   });
@@ -41,11 +41,11 @@ describe('xtools worker', () => {
   describe('POST /xhome', () => {
     it('redirects to x.com search with until and filter', async () => {
       const ctx = createExecutionContext();
-      const response = await worker.fetch(postForm('/xhome', { until: '2026-08-12T10:30', filter: 'filter:images' }), env, ctx);
+      const response = await worker.fetch(postForm('/xhome', { until: '2026-08-12', filter: 'filter:images' }), env, ctx);
       await waitOnExecutionContext(ctx);
       expect(response.status).toBe(302);
       expect(response.headers.get('Location')).toBe(
-        'https://x.com/search?q=-filter:replies%20filter:images%20until:2026-08-12_10:30:00_JST&f=live&pf=on',
+        'https://x.com/search?q=-filter:replies%20filter:images%20until:2026-08-12&f=live&pf=on',
       );
     });
   });

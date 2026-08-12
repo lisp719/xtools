@@ -2,15 +2,6 @@ export function escapeDataString(value: string): string {
   return encodeURIComponent(value).replace(/[!'()*]/g, (c) => '%' + c.charCodeAt(0).toString(16).toUpperCase());
 }
 
-export function formatDate(dateStr: string): string {
-  const [datePart, timePart] = dateStr.split('T');
-  let time = timePart;
-  if (time && time.split(':').length === 2) {
-    time = time + ':00';
-  }
-  return `${datePart}_${time}_JST`;
-}
-
 export interface XhomeOptions {
   filter?: string;
   until?: string;
@@ -19,7 +10,7 @@ export interface XhomeOptions {
 export function buildXhomeUrl(options: XhomeOptions): string {
   let url = 'https://x.com/search?q=-filter:replies';
   if (options.filter) url += '%20' + options.filter;
-  if (options.until) url += '%20until:' + formatDate(options.until);
+  if (options.until) url += '%20until:' + options.until;
   url += '&f=live&pf=on';
   return url;
 }

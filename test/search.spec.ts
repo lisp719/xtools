@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { buildXhomeUrl, buildXsearchUrl, escapeDataString, formatDate } from '../src/lib/search';
+import { buildXhomeUrl, buildXsearchUrl, escapeDataString } from '../src/lib/search';
 
 describe('escapeDataString (compatible with .NET Uri.EscapeDataString)', () => {
   it('escapes spaces, colons and non-reserved chars', () => {
@@ -17,20 +17,6 @@ describe('escapeDataString (compatible with .NET Uri.EscapeDataString)', () => {
   it('returns empty string for empty input', () => {
     expect(escapeDataString('')).toBe('');
   });
-
-  it('escapes a prefixed datetime-local value', () => {
-    expect(escapeDataString('until:2026-08-12_10:30:00_JST')).toBe('until%3A2026-08-12_10%3A30%3A00_JST');
-  });
-});
-
-describe('formatDate (mirrors .NET DateTime.ToString("yyyy-MM-dd_HH:mm:ss_JST"))', () => {
-  it('pads seconds and appends _JST literal', () => {
-    expect(formatDate('2026-08-12T10:30')).toBe('2026-08-12_10:30:00_JST');
-  });
-
-  it('keeps seconds when present', () => {
-    expect(formatDate('2026-08-12T10:30:45')).toBe('2026-08-12_10:30:45_JST');
-  });
 });
 
 describe('buildXhomeUrl', () => {
@@ -42,15 +28,13 @@ describe('buildXhomeUrl', () => {
     expect(buildXhomeUrl({ filter: 'filter:images' })).toBe('https://x.com/search?q=-filter:replies%20filter:images&f=live&pf=on');
   });
 
-  it('appends until with formatted date', () => {
-    expect(buildXhomeUrl({ until: '2026-08-12T10:30' })).toBe(
-      'https://x.com/search?q=-filter:replies%20until:2026-08-12_10:30:00_JST&f=live&pf=on',
-    );
+  it('appends until date', () => {
+    expect(buildXhomeUrl({ until: '2026-08-12' })).toBe('https://x.com/search?q=-filter:replies%20until:2026-08-12&f=live&pf=on');
   });
 
   it('appends filter and until together', () => {
-    expect(buildXhomeUrl({ filter: 'filter:images', until: '2026-08-12T10:30' })).toBe(
-      'https://x.com/search?q=-filter:replies%20filter:images%20until:2026-08-12_10:30:00_JST&f=live&pf=on',
+    expect(buildXhomeUrl({ filter: 'filter:images', until: '2026-08-12' })).toBe(
+      'https://x.com/search?q=-filter:replies%20filter:images%20until:2026-08-12&f=live&pf=on',
     );
   });
 });
