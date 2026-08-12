@@ -6,7 +6,7 @@ export function Xhome() {
       <form method="post" target="_blank">
         <fieldset>
           <label>
-            <input type="datetime-local" name="until" />
+            <input type="date" name="until" />
           </label>
           <label>
             <select name="filter" class="w-full p-3 border rounded-lg">
