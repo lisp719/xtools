@@ -1,0 +1,27 @@
+import { Layout } from './Layout';
+
+export function Xhome() {
+  return (
+    <Layout title="Xhome">
+      <form method="post" target="_blank">
+        <fieldset>
+          <label>
+            <input type="datetime-local" name="until" />
+          </label>
+          <label>
+            <select name="filter" class="w-full p-3 border rounded-lg">
+              <option value="" selected>
+                フィルターを選択
+              </option>
+              <option value="filter:images">画像のみ</option>
+              <option value="filter:links">リンクのみ</option>
+              <option value="-filter:images">画像を除外</option>
+              <option value="-filter:links">リンクを除外</option>
+            </select>
+          </label>
+        </fieldset>
+        <button type="submit">Search</button>
+      </form>
+    </Layout>
+  );
+}
