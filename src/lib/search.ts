@@ -25,6 +25,7 @@ export interface XsearchOptions {
   countType?: string;
   countValue?: string;
   query?: string;
+  exactMatch?: boolean;
 }
 
 export function buildXsearchUrl(options: XsearchOptions): string {
@@ -37,7 +38,11 @@ export function buildXsearchUrl(options: XsearchOptions): string {
   if (options.since) parts.push('since:' + options.since);
   if (options.until) parts.push('until:' + options.until);
   if (options.countType && options.countValue) parts.push(options.countType + ':' + options.countValue);
-  if (options.query && options.query.trim()) parts.push(options.query.trim());
+  if (options.query && options.query.trim()) {
+    let q = options.query.trim();
+    if (options.exactMatch) q = `"${q}"`;
+    parts.push(q);
+  }
 
   const q = parts.join(' ');
   const encoded = q ? escapeDataString(q) : '';

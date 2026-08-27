@@ -32,6 +32,7 @@ app.post('/xsearch', async (c) => {
     countType: (form.get('countType') as string) || undefined,
     countValue: (form.get('countValue') as string) || undefined,
     query: (form.get('query') as string) || undefined,
+    exactMatch: form.get('exactMatch') === 'true',
   });
   return c.redirect(url, 302);
 });
