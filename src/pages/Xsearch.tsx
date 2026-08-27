@@ -19,6 +19,10 @@ export function Xsearch() {
             フォロワーのツイートのみ表示
           </label>
           <label>
+            <input type="checkbox" name="exactMatch" value="true" />
+            ダブルクォーテーションで囲む
+          </label>
+          <label>
             <select name="filter" class="w-full p-3 border rounded-lg">
               <option value="" selected>
                 フィルターを選択
