@@ -40,7 +40,7 @@ export function buildXsearchUrl(options: XsearchOptions): string {
   if (options.countType && options.countValue) parts.push(options.countType + ':' + options.countValue);
   if (options.query && options.query.trim()) {
     let q = options.query.trim();
-    if (options.exactMatch) q = `"${q}"`;
+    if (options.exactMatch) q = q.split(/\s+/).map((word) => `"${word}"`).join(' ');
     parts.push(q);
   }
 

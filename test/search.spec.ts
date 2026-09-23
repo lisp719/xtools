@@ -70,4 +70,19 @@ describe('buildXsearchUrl', () => {
     expect(buildXsearchUrl({ countType: 'min_faves' })).toBe('https://x.com/search?q=&f=live');
     expect(buildXsearchUrl({ countValue: '100' })).toBe('https://x.com/search?q=&f=live');
   });
+
+  it('quotes each word separately when exactMatch is true', () => {
+    const url = buildXsearchUrl({ query: 'hello world', exactMatch: true });
+    expect(url).toBe('https://x.com/search?q=%22hello%22%20%22world%22&f=live');
+  });
+
+  it('quotes a single word when exactMatch is true', () => {
+    const url = buildXsearchUrl({ query: 'hello', exactMatch: true });
+    expect(url).toBe('https://x.com/search?q=%22hello%22&f=live');
+  });
+
+  it('trims and collapses spaces before quoting each word', () => {
+    const url = buildXsearchUrl({ query: '  hello   world  ', exactMatch: true });
+    expect(url).toBe('https://x.com/search?q=%22hello%22%20%22world%22&f=live');
+  });
 });

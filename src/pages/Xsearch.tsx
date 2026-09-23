@@ -20,7 +20,7 @@ export function Xsearch() {
           </label>
           <label>
             <input type="checkbox" name="exactMatch" value="true" />
-            ダブルクォーテーションで囲む
+            単語をダブルクォーテーションで囲む
           </label>
           <label>
             <select name="filter" class="w-full p-3 border rounded-lg">
