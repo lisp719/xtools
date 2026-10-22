@@ -46,5 +46,5 @@ export function buildXsearchUrl(options: XsearchOptions): string {
 
   const q = parts.join(' ');
   const encoded = q ? escapeDataString(q) : '';
-  return 'https://x.com/search?q=' + encoded + '&f=live';
+  return 'https://x.com/search?q=' + encoded;
 }

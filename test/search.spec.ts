@@ -41,7 +41,7 @@ describe('buildXhomeUrl', () => {
 
 describe('buildXsearchUrl', () => {
   it('builds base URL with empty query', () => {
-    expect(buildXsearchUrl({})).toBe('https://x.com/search?q=&f=live');
+    expect(buildXsearchUrl({})).toBe('https://x.com/search?q=');
   });
 
   it('builds query with all toggles and filters', () => {
@@ -57,32 +57,32 @@ describe('buildXsearchUrl', () => {
       query: '検索語',
     });
     expect(url).toBe(
-      'https://x.com/search?q=lang%3Aja%20-filter%3Areplies%20filter%3Afollows%20filter%3Aimages%20since%3A2026-01-01%20until%3A2026-08-12%20min_faves%3A100%20%E6%A4%9C%E7%B4%A2%E8%AA%9E&f=live',
+      'https://x.com/search?q=lang%3Aja%20-filter%3Areplies%20filter%3Afollows%20filter%3Aimages%20since%3A2026-01-01%20until%3A2026-08-12%20min_faves%3A100%20%E6%A4%9C%E7%B4%A2%E8%AA%9E',
     );
   });
 
   it('trims the query', () => {
     const url = buildXsearchUrl({ query: '  hello world  ' });
-    expect(url).toBe('https://x.com/search?q=hello%20world&f=live');
+    expect(url).toBe('https://x.com/search?q=hello%20world');
   });
 
   it('requires both countType and countValue', () => {
-    expect(buildXsearchUrl({ countType: 'min_faves' })).toBe('https://x.com/search?q=&f=live');
-    expect(buildXsearchUrl({ countValue: '100' })).toBe('https://x.com/search?q=&f=live');
+    expect(buildXsearchUrl({ countType: 'min_faves' })).toBe('https://x.com/search?q=');
+    expect(buildXsearchUrl({ countValue: '100' })).toBe('https://x.com/search?q=');
   });
 
   it('quotes each word separately when exactMatch is true', () => {
     const url = buildXsearchUrl({ query: 'hello world', exactMatch: true });
-    expect(url).toBe('https://x.com/search?q=%22hello%22%20%22world%22&f=live');
+    expect(url).toBe('https://x.com/search?q=%22hello%22%20%22world%22');
   });
 
   it('quotes a single word when exactMatch is true', () => {
     const url = buildXsearchUrl({ query: 'hello', exactMatch: true });
-    expect(url).toBe('https://x.com/search?q=%22hello%22&f=live');
+    expect(url).toBe('https://x.com/search?q=%22hello%22');
   });
 
   it('trims and collapses spaces before quoting each word', () => {
     const url = buildXsearchUrl({ query: '  hello   world  ', exactMatch: true });
-    expect(url).toBe('https://x.com/search?q=%22hello%22%20%22world%22&f=live');
+    expect(url).toBe('https://x.com/search?q=%22hello%22%20%22world%22');
   });
 });
