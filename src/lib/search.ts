@@ -33,7 +33,6 @@ export function buildXsearchUrl(options: XsearchOptions): string {
 
   if (options.japaneseOnly) parts.push('lang:ja');
   if (options.excludeReplies) parts.push('-filter:replies');
-  if (options.followersOnly) parts.push('filter:follows');
   if (options.filter) parts.push(options.filter);
   if (options.since) parts.push('since:' + options.since);
   if (options.until) parts.push('until:' + options.until);
@@ -46,5 +45,7 @@ export function buildXsearchUrl(options: XsearchOptions): string {
 
   const q = parts.join(' ');
   const encoded = q ? escapeDataString(q) : '';
-  return 'https://x.com/search?q=' + encoded;
+  let url = 'https://x.com/search?q=' + encoded;
+  if (options.followersOnly) url += '&pf=on';
+  return url;
 }
