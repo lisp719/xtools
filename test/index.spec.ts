@@ -71,8 +71,24 @@ describe('xtools worker', () => {
       await waitOnExecutionContext(ctx);
       expect(response.status).toBe(302);
       expect(response.headers.get('Location')).toBe(
-        'https://x.com/search?q=lang%3Aja%20-filter%3Areplies%20filter%3Afollows%20filter%3Alinks%20since%3A2026-01-01%20until%3A2026-08-12%20min_faves%3A100%20%E6%A4%9C%E7%B4%A2%E8%AA%9E',
+        'https://x.com/search?q=lang%3Aja%20-filter%3Areplies%20filter%3Alinks%20since%3A2026-01-01%20until%3A2026-08-12%20min_faves%3A100%20%E6%A4%9C%E7%B4%A2%E8%AA%9E&pf=on',
       );
+    });
+
+    it('adds pf=on when followersOnly is checked', async () => {
+      const ctx = createExecutionContext();
+      const response = await worker.fetch(postForm('/xsearch', { query: 'hello', followersOnly: 'true' }), env, ctx);
+      await waitOnExecutionContext(ctx);
+      expect(response.status).toBe(302);
+      expect(response.headers.get('Location')).toBe('https://x.com/search?q=hello&pf=on');
+    });
+
+    it('omits pf when followersOnly is unchecked', async () => {
+      const ctx = createExecutionContext();
+      const response = await worker.fetch(postForm('/xsearch', { query: 'hello' }), env, ctx);
+      await waitOnExecutionContext(ctx);
+      expect(response.status).toBe(302);
+      expect(response.headers.get('Location')).toBe('https://x.com/search?q=hello');
     });
   });
 

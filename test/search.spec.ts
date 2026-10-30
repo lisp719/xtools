@@ -57,8 +57,21 @@ describe('buildXsearchUrl', () => {
       query: '検索語',
     });
     expect(url).toBe(
-      'https://x.com/search?q=lang%3Aja%20-filter%3Areplies%20filter%3Afollows%20filter%3Aimages%20since%3A2026-01-01%20until%3A2026-08-12%20min_faves%3A100%20%E6%A4%9C%E7%B4%A2%E8%AA%9E',
+      'https://x.com/search?q=lang%3Aja%20-filter%3Areplies%20filter%3Aimages%20since%3A2026-01-01%20until%3A2026-08-12%20min_faves%3A100%20%E6%A4%9C%E7%B4%A2%E8%AA%9E&pf=on',
     );
+    expect(url).not.toContain('filter%3Afollows');
+  });
+
+  it('adds pf=on and omits filter:follows when followersOnly is checked', () => {
+    const url = buildXsearchUrl({ query: 'hello', followersOnly: true });
+    expect(url).toBe('https://x.com/search?q=hello&pf=on');
+    expect(url).not.toContain('filter:follows');
+    expect(url).not.toContain('filter%3Afollows');
+  });
+
+  it('omits the pf param when followersOnly is unchecked', () => {
+    expect(buildXsearchUrl({ query: 'hello', followersOnly: false })).toBe('https://x.com/search?q=hello');
+    expect(buildXsearchUrl({ query: 'hello' })).toBe('https://x.com/search?q=hello');
   });
 
   it('trims the query', () => {

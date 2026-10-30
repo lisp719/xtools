@@ -16,7 +16,7 @@ export function Xsearch() {
           </label>
           <label>
             <input type="checkbox" name="followersOnly" value="true" />
-            フォロワーのツイートのみ表示
+            フォロー中のツイートのみ表示
           </label>
           <label>
             <input type="checkbox" name="exactMatch" value="true" />
