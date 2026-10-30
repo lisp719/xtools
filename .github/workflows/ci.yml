@@ -5,15 +5,9 @@ on:
     branches:
       - main
   pull_request:
-    branches:
-      - main
-
-concurrency:
-  group: ci-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
-  test:
+  ci:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -27,11 +21,11 @@ jobs:
           node-version: 22
           cache: pnpm
 
-      - name: Install dependencies
+      - name: install
         run: pnpm install --frozen-lockfile
 
-      - name: Typecheck
+      - name: typecheck
         run: pnpm run typecheck
 
-      - name: Test
+      - name: test
         run: pnpm run test
