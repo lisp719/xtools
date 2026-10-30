@@ -20,6 +20,6 @@
     "prettier": "^3.9.10",
     "typescript": "^5.5.2",
     "vitest": "^4.1.10",
-    "wrangler": "^4.120.1"
+    "wrangler": "^4.153.0"
   }
 }
