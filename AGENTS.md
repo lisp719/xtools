@@ -4,10 +4,12 @@ Xの補助ツールを開発するプロジェクトです。Hono + Cloudflare W
 
 # Commands
 
-- `pnpm dev` — wrangler dev でローカル開発サーバーを起動
-- `pnpm test` — Vitest でテストを実行
-- `pnpm typecheck` — TypeScript の型チェック
-- `pnpm deploy` — Cloudflare Workers へデプロイ
+package.json のスクリプトは必ず `pnpm run <script>` で実行すること（例: `pnpm run test`）。`pnpm <script>` の省略形は使わない。
+
+- `pnpm run dev` — wrangler dev でローカル開発サーバーを起動
+- `pnpm run test` — Vitest でテストを実行
+- `pnpm run typecheck` — TypeScript の型チェック
+- `pnpm run deploy` — Cloudflare Workers へデプロイ
 
 # Structure
 
