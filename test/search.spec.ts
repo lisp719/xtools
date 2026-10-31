@@ -62,6 +62,15 @@ describe('buildXsearchUrl', () => {
     expect(url).not.toContain('filter%3Afollows');
   });
 
+  it('omits lang:ja when japaneseOnly is false or omitted', () => {
+    expect(buildXsearchUrl({ query: 'hello', japaneseOnly: false })).toBe('https://x.com/search?q=hello');
+    expect(buildXsearchUrl({ query: 'hello' })).toBe('https://x.com/search?q=hello');
+  });
+
+  it('adds lang:ja when japaneseOnly is true', () => {
+    expect(buildXsearchUrl({ query: 'hello', japaneseOnly: true })).toBe('https://x.com/search?q=lang%3Aja%20hello');
+  });
+
   it('adds pf=on and omits filter:follows when followersOnly is checked', () => {
     const url = buildXsearchUrl({ query: 'hello', followersOnly: true });
     expect(url).toBe('https://x.com/search?q=hello&pf=on');
