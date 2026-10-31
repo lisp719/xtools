@@ -50,6 +50,18 @@ describe('xtools worker', () => {
     });
   });
 
+  describe('GET /xsearch', () => {
+    it('renders japaneseOnly unchecked by default', async () => {
+      const request = new Request(WORKER_ORIGIN + '/xsearch');
+      const ctx = createExecutionContext();
+      const response = await worker.fetch(request, env, ctx);
+      await waitOnExecutionContext(ctx);
+      const html = await response.text();
+      expect(html).toContain('name="japaneseOnly"');
+      expect(html).not.toMatch(/name="japaneseOnly"[^>]*\schecked/);
+    });
+  });
+
   describe('POST /xsearch', () => {
     it('redirects with the assembled query', async () => {
       const ctx = createExecutionContext();
@@ -73,6 +85,14 @@ describe('xtools worker', () => {
       expect(response.headers.get('Location')).toBe(
         'https://x.com/search?q=lang%3Aja%20-filter%3Areplies%20filter%3Alinks%20since%3A2026-01-01%20until%3A2026-08-12%20min_faves%3A100%20%E6%A4%9C%E7%B4%A2%E8%AA%9E&pf=on',
       );
+    });
+
+    it('omits lang:ja when japaneseOnly is unchecked', async () => {
+      const ctx = createExecutionContext();
+      const response = await worker.fetch(postForm('/xsearch', { query: 'hello' }), env, ctx);
+      await waitOnExecutionContext(ctx);
+      expect(response.status).toBe(302);
+      expect(response.headers.get('Location')).toBe('https://x.com/search?q=hello');
     });
 
     it('adds pf=on when followersOnly is checked', async () => {

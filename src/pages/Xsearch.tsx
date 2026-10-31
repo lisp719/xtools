@@ -7,7 +7,7 @@ export function Xsearch() {
         <fieldset>
           <input type="text" name="query" placeholder="Enter search query" required autocomplete="off" />
           <label>
-            <input type="checkbox" name="japaneseOnly" value="true" checked />
+            <input type="checkbox" name="japaneseOnly" value="true" />
             日本語のツイートのみ検索
           </label>
           <label>
