@@ -32,3 +32,14 @@ GitHub Issues で管理 (lisp719/xtools)。詳細は `docs/agents/issue-tracker.
 ### Domain docs
 
 Single-context レイアウト (ルートの CONTEXT.md + docs/adr/)。詳細は `docs/agents/domain.md` を参照。
+
+# バージョン管理
+
+- jjが利用可能な環境ではgitよりjjを優先的に使う
+
+# コミットメッセージ
+
+- Conventional Commitsに従う
+- prefixを必ずつける
+- prefixは小文字で書く
+- 日本語で記述する
