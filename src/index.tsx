@@ -26,6 +26,7 @@ app.post('/xsearch', async (c) => {
     japaneseOnly: form.get('japaneseOnly') === 'true',
     excludeReplies: form.get('excludeReplies') === 'true',
     followersOnly: form.get('followersOnly') === 'true',
+    latestOnly: form.get('latestOnly') === 'true',
     filter: (form.get('filter') as string) || undefined,
     since: (form.get('since') as string) || undefined,
     until: (form.get('until') as string) || undefined,

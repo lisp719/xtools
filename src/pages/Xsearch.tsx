@@ -5,7 +5,15 @@ export function Xsearch() {
     <Layout title="Xsearch">
       <form method="post" target="_blank">
         <fieldset>
+          <legend>キーワード</legend>
           <input type="text" name="query" placeholder="Enter search query" required autocomplete="off" />
+          <label>
+            <input type="checkbox" name="exactMatch" value="true" />
+            単語をダブルクォーテーションで囲む
+          </label>
+        </fieldset>
+        <fieldset>
+          <legend>検索条件</legend>
           <label>
             <input type="checkbox" name="japaneseOnly" value="true" />
             日本語のツイートのみ検索
@@ -14,14 +22,20 @@ export function Xsearch() {
             <input type="checkbox" name="excludeReplies" value="true" />
             リプライを除外
           </label>
+        </fieldset>
+        <fieldset>
+          <legend>表示</legend>
           <label>
             <input type="checkbox" name="followersOnly" value="true" />
             フォロー中のツイートのみ表示
           </label>
           <label>
-            <input type="checkbox" name="exactMatch" value="true" />
-            単語をダブルクォーテーションで囲む
+            <input type="checkbox" name="latestOnly" value="true" />
+            最新タブで表示
           </label>
+        </fieldset>
+        <details>
+          <summary>高度な条件</summary>
           <label>
             <select name="filter" class="w-full p-3 border rounded-lg">
               <option value="" selected>
@@ -57,7 +71,7 @@ export function Xsearch() {
               <input type="date" name="until" />
             </label>
           </div>
-        </fieldset>
+        </details>
         <button type="submit">Search</button>
       </form>
     </Layout>
