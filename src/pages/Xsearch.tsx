@@ -19,6 +19,10 @@ export function Xsearch() {
             フォロー中のツイートのみ表示
           </label>
           <label>
+            <input type="checkbox" name="latestOnly" value="true" />
+            最新タブで表示
+          </label>
+          <label>
             <input type="checkbox" name="exactMatch" value="true" />
             単語をダブルクォーテーションで囲む
           </label>

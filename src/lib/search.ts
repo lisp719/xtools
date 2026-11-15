@@ -19,6 +19,7 @@ export interface XsearchOptions {
   japaneseOnly?: boolean;
   excludeReplies?: boolean;
   followersOnly?: boolean;
+  latestOnly?: boolean;
   filter?: string;
   since?: string;
   until?: string;
@@ -46,6 +47,7 @@ export function buildXsearchUrl(options: XsearchOptions): string {
   const q = parts.join(' ');
   const encoded = q ? escapeDataString(q) : '';
   let url = 'https://x.com/search?q=' + encoded;
+  if (options.latestOnly) url += '&f=live';
   if (options.followersOnly) url += '&pf=on';
   return url;
 }
