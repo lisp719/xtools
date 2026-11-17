@@ -1,10 +1,16 @@
 import { Hono } from 'hono';
+import { createMcpHandler } from '@modelcontextprotocol/server';
 import { buildXhomeUrl, buildXsearchUrl } from './lib/search';
+import { createXtoolsMcpServer } from './lib/mcp-server';
 import { Index } from './pages/Index';
 import { Xhome } from './pages/Xhome';
 import { Xsearch } from './pages/Xsearch';
 
 const app = new Hono();
+
+const mcpHandler = createMcpHandler(() => createXtoolsMcpServer());
+
+app.all('/mcp', (c) => mcpHandler.fetch(c.req.raw));
 
 app.get('/', (c) => c.html(<Index />));
 app.get('/Index', (c) => c.html(<Index />));
