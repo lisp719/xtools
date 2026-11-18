@@ -1,5 +1,5 @@
 lockfile_version: '1'
-generated_at: '2026-11-14T23:48:35.351532+00:00'
+generated_at: '2026-11-18T15:52:05.538645+00:00'
 apm_version: 0.35.1
 dependencies:
 - repo_url: _local/.common.instructions.md
@@ -8,7 +8,7 @@ dependencies:
   package_type: apm_package
   source: local
   local_path: ~/.templates/.common.instructions.md
-  content_hash: sha256:4d076e812e45387cc591ad980417a49d36d7bea78b235b51b63421280666cb6a
+  content_hash: sha256:9f568da6ced4e0f4b942e1a05c84cfa390f8537cda20fbbc2d09885c6b850b6d
 - repo_url: humanlayer/skills
   name: show-me
   host: github.com
