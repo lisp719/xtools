@@ -60,6 +60,20 @@ describe('xtools worker', () => {
       expect(html).toContain('name="japaneseOnly"');
       expect(html).not.toMatch(/name="japaneseOnly"[^>]*\schecked/);
     });
+
+    it('offers count operators as direct fragments', async () => {
+      const request = new Request(WORKER_ORIGIN + '/xsearch');
+      const ctx = createExecutionContext();
+      const response = await worker.fetch(request, env, ctx);
+      await waitOnExecutionContext(ctx);
+      const html = await response.text();
+      expect(html).toContain('value="min_faves"');
+      expect(html).toContain('value="min_replies"');
+      expect(html).toContain('value="-min_faves"');
+      expect(html).toContain('value="-min_replies"');
+      expect(html).not.toContain('value="max_faves"');
+      expect(html).not.toContain('value="max_replies"');
+    });
   });
 
   describe('POST /xsearch', () => {
@@ -109,6 +123,22 @@ describe('xtools worker', () => {
       await waitOnExecutionContext(ctx);
       expect(response.status).toBe(302);
       expect(response.headers.get('Location')).toBe('https://x.com/search?q=hello');
+    });
+
+    it('passes through -min_faves fragment', async () => {
+      const ctx = createExecutionContext();
+      const response = await worker.fetch(postForm('/xsearch', { query: 'hello', countType: '-min_faves', countValue: '100' }), env, ctx);
+      await waitOnExecutionContext(ctx);
+      expect(response.status).toBe(302);
+      expect(response.headers.get('Location')).toBe('https://x.com/search?q=-min_faves%3A100%20hello');
+    });
+
+    it('passes through -min_replies fragment', async () => {
+      const ctx = createExecutionContext();
+      const response = await worker.fetch(postForm('/xsearch', { query: 'hello', countType: '-min_replies', countValue: '100' }), env, ctx);
+      await waitOnExecutionContext(ctx);
+      expect(response.status).toBe(302);
+      expect(response.headers.get('Location')).toBe('https://x.com/search?q=-min_replies%3A100%20hello');
     });
   });
 

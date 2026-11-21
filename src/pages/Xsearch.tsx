@@ -59,9 +59,9 @@ export function Xsearch() {
                     filterType
                   </option>
                   <option value="min_faves">min faves</option>
-                  <option value="max_faves">max faves</option>
+                  <option value="-min_faves">max faves</option>
                   <option value="min_replies">min replies</option>
-                  <option value="max_replies">max replies</option>
+                  <option value="-min_replies">max replies</option>
                 </select>
               </label>
               <label>
