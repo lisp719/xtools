@@ -93,6 +93,18 @@ describe('buildXsearchUrl', () => {
     expect(buildXsearchUrl({ countValue: '100' })).toBe('https://x.com/search?q=');
   });
 
+  it('passes through -min_faves as-is', () => {
+    expect(buildXsearchUrl({ query: 'hello', countType: '-min_faves', countValue: '100' })).toBe(
+      'https://x.com/search?q=-min_faves%3A100%20hello',
+    );
+  });
+
+  it('passes through -min_replies as-is', () => {
+    expect(buildXsearchUrl({ query: 'hello', countType: '-min_replies', countValue: '100' })).toBe(
+      'https://x.com/search?q=-min_replies%3A100%20hello',
+    );
+  });
+
   it('quotes each word separately when exactMatch is true', () => {
     const url = buildXsearchUrl({ query: 'hello world', exactMatch: true });
     expect(url).toBe('https://x.com/search?q=%22hello%22%20%22world%22');
