@@ -36,41 +36,50 @@ export function Xsearch() {
         </fieldset>
         <details>
           <summary>高度な条件</summary>
-          <label>
-            <select name="filter" class="w-full p-3 border rounded-lg">
-              <option value="" selected>
-                フィルターを選択
-              </option>
-              <option value="filter:images">画像のみ</option>
-              <option value="filter:links">リンクのみ</option>
-              <option value="-filter:images">画像を除外</option>
-              <option value="-filter:links">リンクを除外</option>
-            </select>
-          </label>
-          <div class="grid">
+          <fieldset>
+            <legend>フィルター</legend>
             <label>
-              <select name="countType">
+              <select name="filter" class="w-full p-3 border rounded-lg">
                 <option value="" selected>
-                  filterType
+                  フィルターを選択
                 </option>
-                <option value="min_faves">min faves</option>
-                <option value="max_faves">max faves</option>
-                <option value="min_replies">min replies</option>
-                <option value="max_replies">max replies</option>
+                <option value="filter:images">画像のみ</option>
+                <option value="filter:links">リンクのみ</option>
+                <option value="-filter:images">画像を除外</option>
+                <option value="-filter:links">リンクを除外</option>
               </select>
             </label>
-            <label>
-              <input type="number" name="countValue" placeholder="countValue" />
-            </label>
-          </div>
-          <div class="grid">
-            <label>
-              <input type="date" name="since" />
-            </label>
-            <label>
-              <input type="date" name="until" />
-            </label>
-          </div>
+          </fieldset>
+          <fieldset>
+            <legend>反応数</legend>
+            <div class="grid">
+              <label>
+                <select name="countType">
+                  <option value="" selected>
+                    filterType
+                  </option>
+                  <option value="min_faves">min faves</option>
+                  <option value="max_faves">max faves</option>
+                  <option value="min_replies">min replies</option>
+                  <option value="max_replies">max replies</option>
+                </select>
+              </label>
+              <label>
+                <input type="number" name="countValue" placeholder="countValue" />
+              </label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>期間</legend>
+            <div class="grid">
+              <label>
+                <input type="date" name="since" />
+              </label>
+              <label>
+                <input type="date" name="until" />
+              </label>
+            </div>
+          </fieldset>
         </details>
         <button type="submit">Search</button>
       </form>
